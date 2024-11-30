@@ -1,0 +1,387 @@
+!Ts
+name: Simple network
+directed: false
+multi: false
+init: ['GR']
+final: []
+graph:
+  nodes:
+    G1:
+      prop: !!set {'g1': null}
+      location: !!python/tuple [0.000, 0.000]
+    G2:
+      prop: !!set {'g2': null}
+      location: !!python/tuple [0.100, 0.000]
+    G3:
+      prop: !!set {'g3': null}
+      location: !!python/tuple [0.200, 0.000]
+    G4:
+      prop: !!set {'g4': null}
+      location: !!python/tuple [0.300, 0.000]
+    G5:
+      prop: !!set {'g5': null}
+      location: !!python/tuple [0.400, 0.000]
+    G6:
+      prop: !!set {'g6': null}
+      location: !!python/tuple [0.500, 0.000]
+    G7:
+      prop: !!set {'g7': null}
+      location: !!python/tuple [0.600, 0.000]
+    G8:
+      prop: !!set {'g8': null}
+      location: !!python/tuple [0.700, 0.000]
+    G9:
+      prop: !!set {'g9': null}
+      location: !!python/tuple [0.800, 0.000]
+    G10:
+      prop: !!set {'g10': null}
+      location: !!python/tuple [0.900, 0.000]
+    G11:
+      prop: !!set {'g11': null}
+      location: !!python/tuple [1.000, 0.000]
+    G12:
+      prop: !!set {'g12': null}
+      location: !!python/tuple [1.100, 0.000]
+    G13:
+      prop: !!set {'g13': null}
+      location: !!python/tuple [1.200, 0.000]
+
+    G14:
+      prop: !!set {'g14': null}
+      location: !!python/tuple [0.000, 0.600]
+    G15:
+      prop: !!set {'g15': null}
+      location: !!python/tuple [0.100, 0.600]
+    G16:
+      prop: !!set {'g16': null}
+      location: !!python/tuple [0.200, 0.600]
+    G17:
+      prop: !!set {'g17': null}
+      location: !!python/tuple [0.300, 0.600]
+    G18:
+      prop: !!set {'g18': null}
+      location: !!python/tuple [0.400, 0.600]
+    G19:
+      prop: !!set {'g19': null}
+      location: !!python/tuple [0.500, 0.600]
+    G20:
+      prop: !!set {'g20': null}
+      location: !!python/tuple [0.600, 0.600]
+    G21:
+      prop: !!set {'g21': null}
+      location: !!python/tuple [0.700, 0.600]
+    G22:
+      prop: !!set {'g22': null}
+      location: !!python/tuple [0.800, 0.600]
+    G23:
+      prop: !!set {'g23': null}
+      location: !!python/tuple [0.900, 0.600]
+    G24:
+      prop: !!set {'g24': null}
+      location: !!python/tuple [1.000, 0.600]
+    G25:
+      prop: !!set {'g25': null}
+      location: !!python/tuple [1.100, 0.600]
+    G26:
+      prop: !!set {'g26': null}
+      location: !!python/tuple [1.200, 0.600]
+
+    G27:
+      prop: !!set {'g27': null}
+      location: !!python/tuple [0.000, 1.200]
+    G28:
+      prop: !!set {'g28': null}
+      location: !!python/tuple [0.100, 1.200]
+    G29:
+      prop: !!set {'g29': null}
+      location: !!python/tuple [0.200, 1.200]
+    G30:
+      prop: !!set {'g30': null}
+      location: !!python/tuple [0.300, 1.200]
+    G31:
+      prop: !!set {'g31': null}
+      location: !!python/tuple [0.400, 1.200]
+    G32:
+      prop: !!set {'g32': null}
+      location: !!python/tuple [0.500, 1.200]
+    G33:
+      prop: !!set {'g33': null}
+      location: !!python/tuple [0.600, 1.200]
+    G34:
+      prop: !!set {'g34': null}
+      location: !!python/tuple [0.700, 1.200]
+    G35:
+      prop: !!set {'g35': null}
+      location: !!python/tuple [0.800, 1.200]
+    G36:
+      prop: !!set {'g36': null}
+      location: !!python/tuple [0.900, 1.200]
+    G37:
+      prop: !!set {'g37': null}
+      location: !!python/tuple [1.000, 1.200]
+    G38:
+      prop: !!set {'g38': null}
+      location: !!python/tuple [1.100, 1.200]
+    G39:
+      prop: !!set {'g39': null}
+      location: !!python/tuple [1.200, 1.200]
+
+    G40:
+      prop: !!set {'g40': null}
+      location: !!python/tuple [0.000, 0.100]
+    G41:
+      prop: !!set {'g41': null}
+      location: !!python/tuple [0.000, 0.200]
+     G42:
+      prop: !!set {'g42': null}
+      location: !!python/tuple [0.000, 0.300]
+    G43:
+      prop: !!set {'g43': null}
+      location: !!python/tuple [0.000, 0.400]
+    G44:
+      prop: !!set {'g44': null}
+      location: !!python/tuple [0.000, 0.500]
+    G45:
+      prop: !!set {'g45': null}
+      location: !!python/tuple [0.000, 0.700]
+    G46:
+      prop: !!set {'g46': null}
+      location: !!python/tuple [0.000, 0.800]
+    G47:
+      prop: !!set {'g47': null}
+      location: !!python/tuple [0.000, 0.900]
+    G48:
+      prop: !!set {'g48': null}
+      location: !!python/tuple [0.000, 1.000]
+    G49:
+      prop: !!set {'g49': null}
+      location: !!python/tuple [0.000, 1.100]
+    G50:
+      prop: !!set {'g50': null}
+      location: !!python/tuple [0.300, 0.100]
+    G51:
+      prop: !!set {'g51': null}
+      location: !!python/tuple [0.300, 0.200]
+    G52:
+      prop: !!set {'g52': null}
+      location: !!python/tuple [0.300, 0.300]
+    G53:
+      prop: !!set {'g53': null}
+      location: !!python/tuple [0.300, 0.400]
+    G54:
+      prop: !!set {'g54': null}
+      location: !!python/tuple [0.300, 0.500]
+    G55:
+      prop: !!set {'g55': null}
+      location: !!python/tuple [0.300, 0.700]
+    G56:
+      prop: !!set {'g56': null}
+      location: !!python/tuple [0.300, 0.800]
+    G57:
+      prop: !!set {'g57': null}
+      location: !!python/tuple [0.300, 0.900]
+    G58:
+      prop: !!set {'g58': null}
+      location: !!python/tuple [0.300, 1.000]
+    G59:
+      prop: !!set {'g59': null}
+      location: !!python/tuple [0.300, 1.100]
+    G60:
+      prop: !!set {'g60': null}
+      location: !!python/tuple [0.600, 0.100]
+    G61:
+      prop: !!set {'g61': null}
+      location: !!python/tuple [0.600, 0.200]
+    G62:
+      prop: !!set {'g62': null}
+      location: !!python/tuple [0.600, 0.300]
+    G63:
+      prop: !!set {'g63': null}
+      location: !!python/tuple [0.600, 0.400]
+    G64:
+      prop: !!set {'g64': null}
+      location: !!python/tuple [0.600, 0.500]
+    G65:
+      prop: !!set {'g65': null}
+      location: !!python/tuple [0.600, 0.700]
+    G66:
+      prop: !!set {'g66': null}
+      location: !!python/tuple [0.600, 0.800]
+    G67:
+      prop: !!set {'g67': null}
+      location: !!python/tuple [0.600, .900]
+    G68:
+      prop: !!set {'g68': null}
+      location: !!python/tuple [0.600, 1.000]
+    G69:
+      prop: !!set {'g69': null}
+      location: !!python/tuple [0.600, 1.100]
+    G70:
+      prop: !!set {'g70': null}
+      location: !!python/tuple [0.900, 0.100]
+    G71:
+      prop: !!set {'g71': null}
+      location: !!python/tuple [0.900, 0.200]
+    G72:
+      prop: !!set {'g72': null}
+      location: !!python/tuple [0.900, 0.300]
+    G73:
+      prop: !!set {'g73': null}
+      location: !!python/tuple [0.900, 0.400]
+    G74:
+      prop: !!set {'g74': null}
+      location: !!python/tuple [0.900, 0.500]
+    G75:
+      prop: !!set {'g75': null}
+      location: !!python/tuple [0.900, 0.700]
+    G76:
+      prop: !!set {'g76': null}
+      location: !!python/tuple [0.900, 0.800]
+    G77:
+      prop: !!set {'g77': null}
+      location: !!python/tuple [0.900, 0.900]
+    G78:
+      prop: !!set {'g78': null}
+      location: !!python/tuple [0.900, 1.000]
+    G79:
+      prop: !!set {'g79': null}
+      location: !!python/tuple [0.900, 1.100]
+    G80:
+      prop: !!set {'g80': null}
+      location: !!python/tuple [1.200, 0.100]
+    G81:
+      prop: !!set {'g81': null}
+      location: !!python/tuple [1.200, 0.200]
+    G82:
+      prop: !!set {'g82': null}
+      location: !!python/tuple [1.200, 0.300]
+    G83:
+      prop: !!set {'g83': null}
+      location: !!python/tuple [1.200, 0.400]
+    G84:
+      prop: !!set {'g84': null}
+      location: !!python/tuple [1.200, 0.500]
+    G85:
+      prop: !!set {'g85': null}
+      location: !!python/tuple [1.200, 0.700]
+    G86:
+      prop: !!set {'g86': null}
+      location: !!python/tuple [1.200, 0.800]
+    G87:
+      prop: !!set {'g87': null}
+      location: !!python/tuple [1.200, 0.900]
+    G88:
+      prop: !!set {'g88': null}
+      location: !!python/tuple [1.200, 1.000]
+    G89:
+      prop: !!set {'g89': null}
+      location: !!python/tuple [1.200, 1.100]
+    R:
+      prop: !!set {'r': null, 'dropoff': null}
+      location: !!python/tuple [1.300, 0.000]
+    GR:
+      prop: !!set {'gr': null, 'charge': null}
+      location: !!python/tuple [1.200, -0.100]
+
+  edges:
+  - [G27, G28, {'weight': 1}]
+  - [G28, G29, {'weight': 1}]
+  - [G29, G30, {'weight': 1}]
+  - [G30, G31, {'weight': 1}]
+  - [G31, G32, {'weight': 1}]
+  - [G32, G33, {'weight': 1}]
+  - [G33, G34, {'weight': 1}]
+  - [G34, G35, {'weight': 1}]
+  - [G35, G36, {'weight': 1}]
+  - [G36, G37, {'weight': 1}]
+  - [G37, G38, {'weight': 1}]
+  - [G38, G39, {'weight': 1}]
+  - [G14, G15, {'weight': 1}]
+  - [G15, G16, {'weight': 1}]
+  - [G16, G17, {'weight': 1}]
+  - [G17, G18, {'weight': 1}]
+  - [G18, G19, {'weight': 1}]
+  - [G19, G20, {'weight': 1}]
+  - [G20, G21, {'weight': 1}]
+  - [G21, G22, {'weight': 1}]
+  - [G22, G23, {'weight': 1}]
+  - [G23, G24, {'weight': 1}]
+  - [G24, G25, {'weight': 1}]
+  - [G25, G26, {'weight': 1}]
+  - [G1, G2, {'weight': 1}]
+  - [G2, G3, {'weight': 1}]
+  - [G3, G4, {'weight': 1}]
+  - [G4, G5, {'weight': 1}]
+  - [G5, G6, {'weight': 1}]
+  - [G6, G7, {'weight': 1}]
+  - [G7, G8, {'weight': 1}]
+  - [G8, G9, {'weight': 1}]
+  - [G9, G10, {'weight': 1}]
+  - [G10, G11, {'weight': 1}]
+  - [G11, G12, {'weight': 1}]
+  - [G12, G13, {'weight': 1}]
+  - [G40, G1, {'weight': 1}]
+  - [G50, G4, {'weight': 1}]
+  - [G60, G7, {'weight': 1}]
+  - [G70, G10, {'weight': 1}]
+  - [G80, G13, {'weight': 1}]
+  - [G14, G44, {'weight': 1}]
+  - [G45, G14, {'weight': 1}]
+  - [G17, G54, {'weight': 1}]
+  - [G55, G17, {'weight': 1}]
+  - [G20, G64, {'weight': 1}]
+  - [G65, G20, {'weight': 1}]
+  - [G23, G74, {'weight': 1}]
+  - [G75, G23, {'weight': 1}]
+  - [G26, G84, {'weight': 1}]
+  - [G85, G26, {'weight': 1}]
+  - [G27, G49, {'weight': 1}]
+  - [G30, G59, {'weight': 1}]
+  - [G33, G69, {'weight': 1}]
+  - [G36, G79, {'weight': 1}]
+  - [G39, G89, {'weight': 1}]
+  - [G41, G40, {'weight': 1}]
+  - [G42, G41, {'weight': 1}]
+  - [G43, G42, {'weight': 1}]
+  - [G44, G43, {'weight': 1}]
+  - [G46, G45, {'weight': 1}]
+  - [G47, G46, {'weight': 1}]
+  - [G48, G47, {'weight': 1}]
+  - [G49, G48, {'weight': 1}]
+  - [G51, G50, {'weight': 1}]
+  - [G52, G51, {'weight': 1}]
+  - [G53, G52, {'weight': 1}]
+  - [G54, G53, {'weight': 1}]
+  - [G56, G55, {'weight': 1}]
+  - [G57, G56, {'weight': 1}]
+  - [G58, G57, {'weight': 1}]
+  - [G59, G58, {'weight': 1}]
+  - [G61, G60, {'weight': 1}]
+  - [G62, G61, {'weight': 1}]
+  - [G63, G62, {'weight': 1}]
+  - [G64, G63, {'weight': 1}]
+  - [G66, G65, {'weight': 1}]
+  - [G67, G66, {'weight': 1}]
+  - [G68, G67, {'weight': 1}]
+  - [G69, G68, {'weight': 1}]
+  - [G71, G70, {'weight': 1}]
+  - [G72, G71, {'weight': 1}]
+  - [G73, G72, {'weight': 1}]
+  - [G74, G73, {'weight': 1}]
+  - [G76, G75, {'weight': 1}]
+  - [G77, G76, {'weight': 1}]
+  - [G78, G77, {'weight': 1}]
+  - [G79, G78, {'weight': 1}]
+  - [G81, G80, {'weight': 1}]
+  - [G82, G81, {'weight': 1}]
+  - [G83, G82, {'weight': 1}]
+  - [G84, G83, {'weight': 1}]
+  - [G86, G85, {'weight': 1}]
+  - [G87, G86, {'weight': 1}]
+  - [G88, G87, {'weight': 1}]
+  - [G89, G88, {'weight': 1}]
+  - [G13, GR, {'weight': 1}]
+  - [G13, R, {'weight': 1}]
+
+
+
