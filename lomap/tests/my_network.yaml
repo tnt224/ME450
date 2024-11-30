@@ -1,5 +1,5 @@
 !Ts
-name: Simple network
+name: my_network
 directed: false
 multi: false
 init: ['GR']
@@ -45,7 +45,6 @@ graph:
     G13:
       prop: !!set {'g13': null}
       location: !!python/tuple [1.200, 0.000]
-
     G14:
       prop: !!set {'g14': null}
       location: !!python/tuple [0.000, 0.600]
@@ -85,7 +84,6 @@ graph:
     G26:
       prop: !!set {'g26': null}
       location: !!python/tuple [1.200, 0.600]
-
     G27:
       prop: !!set {'g27': null}
       location: !!python/tuple [0.000, 1.200]
@@ -125,14 +123,13 @@ graph:
     G39:
       prop: !!set {'g39': null}
       location: !!python/tuple [1.200, 1.200]
-
     G40:
       prop: !!set {'g40': null}
       location: !!python/tuple [0.000, 0.100]
     G41:
       prop: !!set {'g41': null}
       location: !!python/tuple [0.000, 0.200]
-     G42:
+    G42:
       prop: !!set {'g42': null}
       location: !!python/tuple [0.000, 0.300]
     G43:
