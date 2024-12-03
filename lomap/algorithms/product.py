@@ -146,7 +146,7 @@ def process_product_transition(product_model, stack, current_state, next_state,
         if next_state not in product_model.g[current_state]:
             # Add transition with data
             transition_data = get_transition_data(current_state, next_state)
-            product_model.g.add_edge(current_state, next_state,
+            product_model.g.add_edge(current_state, 
                                      attr_dict=transition_data)
 
 
@@ -198,9 +198,7 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
     else:
         # Iterate over initial states of the TS
         for init_ts in ts.init:
-            # Update this to use `nodes` instead of `node`
-            init_prop = ts.g.nodes[init_ts].get('prop', set())
-            
+            init_prop = ts.g.node[init_ts].get('prop', set())
             # Iterate over the initial states of the FSA
             for init_fsa in fsa.init:
                 # Add the initial states to the graph and mark them as initial
@@ -227,15 +225,13 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
 
         for ts_next_state, weight, control in ts.next_states_of_wts(ts_state,
                                                      traveling_states=False):
-            # Update this to use `nodes` instead of `node`
-            ts_next_prop = ts.g.nodes[ts_next_state].get('prop', set())
+            ts_next_prop = ts.g.node[ts_next_state].get('prop', set())
             fsa_next_state = fsa.next_state(fsa_state, ts_next_prop)
             if fsa_next_state is not None:
                 # TODO: use process_product_transition instead
                 next_state = (ts_next_state, fsa_next_state)
                 if next_state not in product_model.g:
-                    # Update this to use `nodes` instead of `node`
-                    next_prop = ts.g.nodes[ts_next_state].get('prop', set())
+                    next_prop = ts.g.node[ts_next_state].get('prop', set())
                     # Add the new state
                     next_state_data = get_state_data(next_state, prop=next_prop,
                                                      ts=ts, fsa=fsa)
@@ -243,8 +239,8 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
                     # Add transition w/ data
                     transition_data = get_transition_data(cur_state, next_state,
                                 weight=weight, control=control, ts=ts, fsa=fsa)
-                    product_model.g.add_edge(cur_state, next_state,
-                                             attr_dict=transition_data)
+                    product_model.g.add_edge(cur_state, next_state, attr_dict=transition_data)
+
                     # Mark as final if final in fsa
                     if fsa_next_state in fsa.final:
                         product_model.final.add(next_state)
@@ -254,8 +250,8 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
                     # Add transition w/ data
                     transition_data = get_transition_data(cur_state, next_state,
                                 weight=weight, control=control, ts=ts, fsa=fsa)
-                    product_model.g.add_edge(cur_state, next_state,
-                                             attr_dict=transition_data)
+                    product_model.g.add_edge(cur_state, next_state, attr_dict=transition_data)
+
 
     return product_model
 
@@ -319,8 +315,7 @@ def ts_times_buchi(ts, buchi):
 
                     # Add transition w/ weight
                     attr_dict = {'weight': weight, 'control': control}
-                    product_model.g.add_edge(cur_state, next_state,
-                                             attr_dict=attr_dict)
+                    product_model.g.add_edge(cur_state, next_state, attr_dict=attr_dict)
 
                     # Mark as final if final in buchi
                     if buchi_next_state in buchi.final:
@@ -331,8 +326,7 @@ def ts_times_buchi(ts, buchi):
 
                 elif(next_state not in product_model.g[cur_state]):
                     attr_dict = {'weight': weight, 'control': control}
-                    product_model.g.add_edge(cur_state, next_state,
-                                             attr_dict=attr_dict)
+                    product_model.g.add_edge(cur_state, next_state, attr_dict=attr_dict)
 
     return product_model
 
@@ -405,14 +399,14 @@ def ts_times_ts(ts_tuple):
                         'label': "{}\\n{}".format(next_state, list(next_prop))})
 
                 # Add transition w/ weight
-                product_ts.g.add_edge(cur_state, next_state,
+                product_ts.g.add_edge(cur_state, 
                                 attr_dict={'weight': w_min, 'control': control})
                 # Continue dfs from ns
                 stack.append(next_state)
 
             # Add tran w/ weight if new
             elif next_state not in product_ts.g[cur_state]:
-                product_ts.g.add_edge(cur_state, next_state,
+                product_ts.g.add_edge(cur_state, 
                                 attr_dict={'weight': w_min, 'control': control})
 
     # Return ts_1 x ts_2 x ...
@@ -519,7 +513,7 @@ def fsa_times_fsa(fsa_tuple, from_current=False,
                                for s, fsa in zip(next_state, fsa_tuple)])))
                 transition_data = get_transition_data(current_state, next_state,
                               guard=guard, bitmaps=bitmaps, fsa_tuple=fsa_tuple)
-                product_fsa.g.add_edge(current_state, next_state,
+                product_fsa.g.add_edge(current_state, 
                                        attr_dict=transition_data)
     # Return fsa_1 x fsa_2 x ...
     return product_fsa
@@ -665,7 +659,7 @@ def ts_times_fsas(ts, fsa_tuple, from_current=None, expand_finals=True,
 #                 # Add transition with data
 #                 transition_data = get_transition_data(current_state,
 #                                      next_state, ts=ts, fsa_tuple=fsa_tuple)
-#                 product_model.g.add_edge(current_state, next_state,
+#                 product_model.g.add_edge(current_state, 
 #                                          attr_dict=transition_data)
 
     return product_model

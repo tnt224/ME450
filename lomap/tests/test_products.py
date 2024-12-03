@@ -68,7 +68,7 @@ def test_ts_times_fsa():
     '''TODO:'''
 
 def test_ts_times_buchi():
-    ts = Ts.load('./simple_network.yaml')
+    ts = Ts.load('tests/simple_network.yaml')
 
     print('Loaded transition system of size', ts.size())
     ts.visualize(edgelabel='weight', draw='matplotlib')

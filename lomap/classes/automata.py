@@ -112,6 +112,7 @@ Edges: {edges}
         over the atomic propositions.
         """
         # Get sets for all props
+        guard = guard.replace('true', 'True').replace('false', 'False')
         for key in self.props:
             guard = re.sub(r'\b{}\b'.format(key),
                            "self.symbols_w_prop('{}')".format(key),
