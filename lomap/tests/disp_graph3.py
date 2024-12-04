@@ -13,18 +13,18 @@ import itertools as it
 # Load the YAML file using the Ts class
 filename = "tests/my_network.yaml"  # Path to your YAML file
 run_directory=os.getcwd()
-file_path=os.path.join(run_directory, 'package.yaml')
-file_path2=os.path.join(run_directory, 'my_network_directed.yaml')
+#file_path=os.path.join(run_directory, 'package.yaml')
+file_path2=os.path.join(run_directory, 'tests/my_network_directed.yaml')
 try:
     # Load the transition system
-    ts = Ts.load(file_path)
+    #ts = Ts.load(file_path)
     ts2= Ts.load(file_path2)
     
     # fsa_pickup = Fsa(multi=False)
     # fsa_pickup.from_formula('F (pick1 & F (pick2 & F dropoff)) | F (pick2 & F (pick1 & F dropoff))')
     # fsa_pickup.save('fsa_pickup.yaml')
     # print('Saved FSA pick!')
-    fsa_pickup = Fsa.load('fsa_pickup.yaml')
+    fsa_pickup = Fsa.load('tests/fsa_pickup.yaml')
 except Exception as e:
     print(f"Error loading the YAML file: {e}")
     exit()
@@ -148,7 +148,7 @@ except Exception as e:
 
 # Define the specification and create FSA automaton
 spec = 'G((!r U (F pick1 & F pick2)) & X (F (r & X gr)))'
-spec= 'G(F pick1)'
+spec= '(F pick1 && F pick2)'
 #spec= '  (gr && X (g13 && X (r && X (g13 && X gr))))'
 #spec ='F (g12 && F g24) || F (g24 && F g12) && X (F r)'
 fsa = Fsa()  # Create an Fsa object
@@ -178,6 +178,7 @@ if myvar2==2:
     plt.savefig("pa.png")  # Save the FSA graph
     plt.clf()  # Clear the figure after saving
     print(f"Nodes: {list(pa.g.nodes(data=True))}")
+    #print(f"Edges: {list(pa.g.edges(data=True))}")
 
 
 # Extract initial and final states

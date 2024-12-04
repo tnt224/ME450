@@ -195,15 +195,16 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
     product_model = Model()
     if from_current:
         product_model.init[(ts.current, fsa.current)] = 1
-        print(product_model.init)
+        #print(product_model.init)
     else:
         # Iterate over initial states of the TS
         for init_ts in ts.init:
-            init_ts=next(iter(ts.g.node))
+            init_ts=next(iter(ts.g.node))                        #comment this line out if not disp_graph3
             init_prop = ts.g.node[init_ts].get('prop', set())
+            print(init_prop)
             # Iterate over the initial states of the FSA
             for init_fsa in fsa.init:
-                print(init_fsa)
+                #print(init_fsa)
                 # Add the initial states to the graph and mark them as initial
                 act_init_fsa = fsa.next_state(init_fsa, init_prop)
                 if act_init_fsa is not None:
@@ -217,13 +218,13 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
 
     # Add all initial states to the stack
     stack = deque(product_model.init)
-    print(stack)
-    print(fsa.final)
+    #print(stack)
+    #print(fsa.final)
     # Consume the stack
     while stack:
         cur_state = stack.pop()
         ts_state, fsa_state = cur_state
-        print(cur_state)
+        #print(cur_state)
 
         # skip processing final beyond final states
         if not expand_finals and fsa_state in fsa.final:
@@ -232,12 +233,14 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
         for ts_next_state, weight, control in ts.next_states_of_wts(ts_state,
                                                      traveling_states=False):
             ts_next_prop = ts.g.node[ts_next_state].get('prop', set())
+            #print(ts_next_prop)
             fsa_next_state = fsa.next_state(fsa_state, ts_next_prop)
-            print(ts_next_prop)
+            #print(ts_next_prop)
             if fsa_next_state is not None:
                 # TODO: use process_product_transition instead
                 next_state = (ts_next_state, fsa_next_state)
                 if next_state not in product_model.g:
+                    #print('test1')
                     next_prop = ts.g.node[ts_next_state].get('prop', set())
                     # Add the new state
                     next_state_data = get_state_data(next_state, prop=next_prop,
@@ -255,6 +258,7 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
                     stack.append(next_state)
                 elif next_state not in product_model.g[cur_state]:
                     # Add transition w/ data
+                    #print('test2')
                     transition_data = get_transition_data(cur_state, next_state,
                                 weight=weight, control=control, ts=ts, fsa=fsa)
                     product_model.g.add_edge(cur_state, next_state, attr_dict=transition_data)

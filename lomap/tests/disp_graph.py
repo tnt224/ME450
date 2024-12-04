@@ -12,7 +12,7 @@ import numpy as np
 # Load the YAML file using the Ts class
 filename = "tests/my_network.yaml"  # Path to your YAML file
 run_directory=os.getcwd()
-file_path=os.path.join(run_directory, 'my_network.yaml')
+file_path=os.path.join(run_directory, 'tests/my_network.yaml')
 try:
     # Load the transition system
     ts = Ts.load(file_path)
@@ -36,7 +36,7 @@ except Exception as e:
 
 # Define the specification and create FSA automaton
 spec = 'G((!r U (F g24 & F g40)) & X (F (r & X gr)))'
-spec = 'G(F g24)'
+#spec = 'G(F pick1 && F pick)'
 #spec= '  (gr && X (g13 && X (r && X (g13 && X gr))))'
 #spec ='F (g12 && F g24) || F (g24 && F g12) && X (F r)'
 fsa = Fsa()  # Create an Fsa object
@@ -65,6 +65,7 @@ if myvar2==2:
     plt.title("PA Automaton")  # Add title for clarity
     plt.savefig("pa.png")  # Save the FSA graph
     plt.clf()  # Clear the figure after saving
+    #print(f"Edges: {list(pa.g.edges(data=True))}")
 
 
 

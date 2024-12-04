@@ -193,7 +193,7 @@ Edges: {edges}
             target_state for _, target_state, edge_data in self.g.out_edges(current_state, data=True)
             if 'input' in edge_data and input_bitmap in edge_data['input']
         ]
-        print(next_states)  # Debugging: Print the potential next states
+        #print(next_states)  # Debugging: Print the potential next states
 
         # Ensure determinism: There should be at most one valid next state
         assert len(next_states) <= 1, "Automaton is not deterministic!"
