@@ -195,12 +195,15 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
     product_model = Model()
     if from_current:
         product_model.init[(ts.current, fsa.current)] = 1
+        print(product_model.init)
     else:
         # Iterate over initial states of the TS
         for init_ts in ts.init:
+            init_ts=next(iter(ts.g.node))
             init_prop = ts.g.node[init_ts].get('prop', set())
             # Iterate over the initial states of the FSA
             for init_fsa in fsa.init:
+                print(init_fsa)
                 # Add the initial states to the graph and mark them as initial
                 act_init_fsa = fsa.next_state(init_fsa, init_prop)
                 if act_init_fsa is not None:
@@ -214,19 +217,23 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
 
     # Add all initial states to the stack
     stack = deque(product_model.init)
+    print(stack)
+    print(fsa.final)
     # Consume the stack
     while stack:
         cur_state = stack.pop()
         ts_state, fsa_state = cur_state
+        print(cur_state)
 
         # skip processing final beyond final states
         if not expand_finals and fsa_state in fsa.final:
             continue
-
+        #print('test')
         for ts_next_state, weight, control in ts.next_states_of_wts(ts_state,
                                                      traveling_states=False):
             ts_next_prop = ts.g.node[ts_next_state].get('prop', set())
             fsa_next_state = fsa.next_state(fsa_state, ts_next_prop)
+            print(ts_next_prop)
             if fsa_next_state is not None:
                 # TODO: use process_product_transition instead
                 next_state = (ts_next_state, fsa_next_state)
@@ -399,15 +406,15 @@ def ts_times_ts(ts_tuple):
                         'label': "{}\\n{}".format(next_state, list(next_prop))})
 
                 # Add transition w/ weight
-                product_ts.g.add_edge(cur_state, 
-                                attr_dict={'weight': w_min, 'control': control})
+                product_ts.g.add_edge(cur_state, next_state, weight=w_min, control=control)
+
                 # Continue dfs from ns
                 stack.append(next_state)
 
             # Add tran w/ weight if new
             elif next_state not in product_ts.g[cur_state]:
-                product_ts.g.add_edge(cur_state, 
-                                attr_dict={'weight': w_min, 'control': control})
+                product_ts.g.add_edge(cur_state, next_state, weight=w_min, control=control)
+
 
     # Return ts_1 x ts_2 x ...
     return product_ts

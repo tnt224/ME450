@@ -1,0 +1,137 @@
+!Fsa
+final: !!set
+  accept_all: null
+graph:
+  edges:
+  - - T0_init
+    - T0_S1
+    - guard: ((!(dropoff)) && (pick1) && (pick2))
+      input: !!set
+        6: null
+      label: ((!(dropoff)) && (pick1) && (pick2))
+      weight: 0
+  - - T0_init
+    - T0_S2
+    - guard: ((pick1) && (!(pick2)))
+      input: !!set
+        2: null
+        3: null
+      label: ((pick1) && (!(pick2)))
+      weight: 1
+  - - T0_init
+    - T0_init
+    - guard: ((!(pick1)) && (!(pick2)))
+      input: !!set
+        0: null
+        1: null
+      label: ((!(pick1)) && (!(pick2)))
+      weight: 0
+  - - T0_init
+    - T0_S4
+    - guard: ((!(pick1)) && (pick2))
+      input: !!set
+        4: null
+        5: null
+      label: ((!(pick1)) && (pick2))
+      weight: 1
+  - - accept_all
+    - accept_all
+    - guard: (1)
+      input: !!set
+        0: null
+        1: null
+        2: null
+        3: null
+        4: null
+        5: null
+        6: null
+        7: null
+      label: (1)
+      weight: 0
+  - - T0_S1
+    - accept_all
+    - guard: (dropoff)
+      input: !!set
+        1: null
+        3: null
+        5: null
+        7: null
+      label: (dropoff)
+      weight: 2
+  - - T0_S1
+    - T0_S1
+    - guard: (!(dropoff))
+      input: !!set
+        0: null
+        2: null
+        4: null
+        6: null
+      label: (!(dropoff))
+      weight: 2
+  - - T0_S2
+    - accept_all
+    - guard: ((dropoff) && (pick2))
+      input: !!set
+        5: null
+        7: null
+      label: ((dropoff) && (pick2))
+      weight: 0
+  - - T0_S2
+    - T0_S1
+    - guard: ((!(dropoff)) && (pick2))
+      input: !!set
+        4: null
+        6: null
+      label: ((!(dropoff)) && (pick2))
+      weight: 0
+  - - T0_S2
+    - T0_S2
+    - guard: (!(pick2))
+      input: !!set
+        0: null
+        1: null
+        2: null
+        3: null
+      label: (!(pick2))
+      weight: 0
+  - - T0_S4
+    - accept_all
+    - guard: ((dropoff) && (pick1))
+      input: !!set
+        3: null
+        7: null
+      label: ((dropoff) && (pick1))
+      weight: 0
+  - - T0_S4
+    - T0_S1
+    - guard: ((!(dropoff)) && (pick1))
+      input: !!set
+        2: null
+        6: null
+      label: ((!(dropoff)) && (pick1))
+      weight: 0
+  - - T0_S4
+    - T0_S4
+    - guard: (!(pick1))
+      input: !!set
+        0: null
+        1: null
+        4: null
+        5: null
+      label: (!(pick1))
+      weight: 0
+  nodes:
+    T0_S1: {}
+    T0_S2: {}
+    T0_S4: {}
+    T0_init: {}
+    accept_all: {}
+init:
+  T0_init: 1
+multi: false
+name: 'FSA corresponding to the formula: F (pick1 & F (pick2 & F dropoff)) | F (pick2
+  & F (pick1 & F dropoff))'
+props:
+  dropoff: 1
+  pick1: 2
+  pick2: 4

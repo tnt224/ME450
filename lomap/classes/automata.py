@@ -170,24 +170,38 @@ Edges: {edges}
         return [v for _, v, d in self.g.out_edges(q, data=True)
             if 'input' in d and prop_bitmap in d['input']]
 
-    def next_state(self, q, props):
+    def next_state(self, current_state, input_props):
         """
-        Returns the next state of state q given input proposition set props.
+        Determines the next state of the automaton given the current state and a set of input propositions.
 
-        Note: This method should only be used with deterministic automata. It
-        might raise an assertion error otherwise.
+        Note: This method assumes the automaton is deterministic. If multiple valid transitions are found,
+        an AssertionError will be raised.
+
+        Parameters:
+        - current_state: The current state of the automaton.
+        - input_props: A set of input propositions to determine the transition.
+
+        Returns:
+        - The next state if a valid transition exists.
+        - None if no valid transition exists (blocking automaton).
         """
-        # Get the bitmap representation of props
-        prop_bitmap = self.bitmap_of_props(props)
+        # Convert the input propositions to a bitmap representation
+        input_bitmap = self.bitmap_of_props(input_props)
 
-        # Return an array of next states, but only if 'input' exists in the edge data
-        nq = [v for _, v, d in self.g.out_edges(q, data=True)
-            if 'input' in d and prop_bitmap in d['input']]
+        # Find outgoing transitions from the current state that match the input
+        next_states = [
+            target_state for _, target_state, edge_data in self.g.out_edges(current_state, data=True)
+            if 'input' in edge_data and input_bitmap in edge_data['input']
+        ]
+        print(next_states)  # Debugging: Print the potential next states
 
-        assert len(nq) <= 1
-        if nq:
-            return nq[0]
-        return None  # This is reached only for blocking automata
+        # Ensure determinism: There should be at most one valid next state
+        assert len(next_states) <= 1, "Automaton is not deterministic!"
+
+        # Return the next state if it exists, otherwise return None
+        if next_states:
+            return next_states[0]
+        return None  # Blocking automaton: No valid transition exists
 
     def word_from_trajectory(self, trajectory):
         '''

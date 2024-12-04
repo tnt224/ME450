@@ -12,21 +12,64 @@ import numpy as np
 # Load the YAML file using the Ts class
 filename = "tests/my_network.yaml"  # Path to your YAML file
 run_directory=os.getcwd()
-file_path=os.path.join(run_directory, 'my_network.yaml')
+file_path=os.path.join(run_directory, 'package.yaml')
+file_path2=os.path.join(run_directory, 'my_network_directed.yaml')
 try:
     # Load the transition system
     ts = Ts.load(file_path)
+    ts2= Ts.load(file_path2)
+    
+    # fsa_pickup = Fsa(multi=False)
+    # fsa_pickup.from_formula('F (pick1 & F (pick2 & F dropoff)) | F (pick2 & F (pick1 & F dropoff))')
+    # fsa_pickup.save('fsa_pickup.yaml')
+    # print('Saved FSA pick!')
+    fsa_pickup = Fsa.load('fsa_pickup.yaml')
 except Exception as e:
     print(f"Error loading the YAML file: {e}")
     exit()
 
+packages = {
+    'pick1' : 'G24',
+    'pick2' : 'G40',
+    'dropoff' : 'R'
+}
+
+for label, state in packages.items():
+    ts2.g.node[state]['prop'].add(label)
+
+def product_transition_data(current_state, next_state):
+    '''Returns the default data to store for a transition of a product.
+
+    Parameters
+    ----------
+    current_state, next_state: hashable
+        The endpoint states of the transition.
+
+    Returns
+    -------
+        Dictionary containing the data to be stored.
+    '''
+    ts_current, fsa_current = current_state
+    ts_next, fsa_next = next_state
+
+    ts_weight = ts2.g[ts_current][ts_next]['weight']
+    fsa_weight = fsa_pickup.g[fsa_current][fsa_next]['weight']
+
+    return {'weight': ts_weight + fsa_weight}
+
+ts_prod = product.ts_times_fsa(ts2, fsa_pickup, get_transition_data=product_transition_data)
+print('TS prod done!', ts_prod.size())
+
+exit()
+
+ts_prod=product.ts_times_ts((ts,ts2))
 # Display graph details (optional)
-print(f"Nodes: {list(ts.g.nodes(data=True))}")
-print(f"Edges: {list(ts.g.edges(data=True))}")
+print(f"Nodes: {list(ts_prod.g.nodes(data=True))}")
+print(f"Edges: {list(ts_prod.g.edges(data=True))}")
 
 # Visualize the graph using matplotlib
 try:
-    ts.visualize(edgelabel='weight', draw='matplotlib')
+    ts_prod.visualize(edgelabel='weight', draw='matplotlib')
     plt.title("Transition System")  # Add title for clarity
     plt.savefig("graph.png")  # Save the first graph
     print("Graph saved as graph.png")
@@ -36,7 +79,6 @@ except Exception as e:
 
 # Define the specification and create FSA automaton
 spec = 'G((!r U (F g24 & F g40)) & X (F (r & X gr)))'
-spec = 'G(F g24)'
 #spec= '  (gr && X (g13 && X (r && X (g13 && X gr))))'
 #spec ='F (g12 && F g24) || F (g24 && F g12) && X (F r)'
 fsa = Fsa()  # Create an Fsa object
@@ -58,7 +100,7 @@ except Exception as e:
 
 myvar2=2
 if myvar2==2:
-    pa=product.ts_times_fsa(ts,fsa)
+    pa=product.ts_times_fsa(ts_prod,fsa)
     print(pa.size())
     pa.visualize(draw='matplotlib')
     plt.show()
@@ -102,3 +144,11 @@ if optimal_costs:
     print(f"Optimal Cost: {optimal_costs[min_cost_index]}")
 else:
     print("No feasible paths to final states found.")
+
+
+
+
+
+
+
+

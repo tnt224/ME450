@@ -1,0 +1,31 @@
+!Ts
+name: package
+directed: true
+multi: false
+init: [P0]
+final: []
+graph:
+  nodes:
+    P0:
+      prop: !!set {'p0': null}
+      location: !!python/tuple [0.000, 0.000]
+    P1:
+      prop: !!set {'p1': null}
+      location: !!python/tuple [0.100, 0.000]
+    P2:
+      prop: !!set {'p2': null}
+      location: !!python/tuple [0.000, 0.100]
+    D1:
+      prop: !!set {'d1': null}
+      location: !!python/tuple [0.100, 0.100]
+      
+  edges:
+  - [P0, P0, {'weight': 0}]
+  - [P0, P1, {'weight': 1}]
+  - [P0, P2, {'weight': 1}]
+  - [P1, P1, {'weight': 1}]
+  - [P2, P2, {'weight': 1}]
+  - [P1, D1, {'weight': 2}]
+  - [P2, D1, {'weight': 2}]
+  - [D1, D1, {'weight': 2}]
+  - [D1, P0, {'weight': 0}]

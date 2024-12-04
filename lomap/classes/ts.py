@@ -41,7 +41,7 @@ class Ts(Model): #TODO: make independent of graph type
             controls.append(self.g[s][t][0].get('control', None))
         return controls
 
-    def next_states_of_wts(self, q, traveling_states = True):
+    def next_states_of_wts(self, q, traveling_states=True):
         """
         Returns a tuple (next_state, remaining_time, control) for each outgoing
         transition from q in a tuple.
@@ -49,7 +49,7 @@ class Ts(Model): #TODO: make independent of graph type
         Parameters:
         -----------
         q : Node label or a tuple
-            A tuple stands for traveling states of the form (q,q',x), i.e.
+            A tuple stands for traveling states of the form (q, q', x), i.e.,
             robot left q x time units ago and going towards q'.
 
         Notes:
@@ -57,18 +57,30 @@ class Ts(Model): #TODO: make independent of graph type
         Only works for a regular weighted deterministic transition system
         (not a nondet or team ts).
         """
-        if(traveling_states and isinstance(q, tuple)):
+        """
+        print(f"Graph type: {type(self.g)}")
+        print(f"Processing state: {q}")
+        if traveling_states and isinstance(q, tuple):
+            print(f"Traveling state: Source={q[0]}, Target={q[1]}, Elapsed={q[2]}")
+            print(f"Edge data: {self.g[q[0]][q[1]]}")
+        else:
+            print(f"Normal state: {q}")
+            print(f"Outgoing edges: {list(self.g.edges(q, data=True))}")
+            """
+        
+        if traveling_states and isinstance(q, tuple):
             # q is a tuple of the form (source, target, elapsed_time)
             source, target, elapsed_time = q
-            # the last [0] is required because MultiDiGraph edges have keys
-            rem_time = self.g[source][target][0]['weight'] - elapsed_time
-            control = self.g[source][target][0].get('control', None)
+            # Correct access for DiGraph edge attributes
+            edge_data = self.g[source][target]
+            rem_time = edge_data['weight'] - elapsed_time
+            control = edge_data.get('control', None)
             # Return a tuple of tuples
             return ((target, rem_time, control),)
         else:
             # q is a normal state of the transition system
             r = []
-            for source, target, data in self.g.edges_iter((q,), data=True):
+            for source, target, data in self.g.edges(q, data=True):  # Updated to use edges()
                 r.append((target, data['weight'], data.get('control', None)))
             return tuple(r)
 
