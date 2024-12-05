@@ -192,14 +192,14 @@ def ts_times_fsa(ts, fsa, from_current=False, expand_finals=True,
     '''
 
     # Create the product_model
-    product_model = Model()
+    product_model = Model(multi=False)
     if from_current:
         product_model.init[(ts.current, fsa.current)] = 1
         #print(product_model.init)
     else:
         # Iterate over initial states of the TS
         for init_ts in ts.init:
-            init_ts=next(iter(ts.g.node))                        #comment this line out if not disp_graph3
+            #init_ts=next(iter(ts.g.node))                        #comment this line out if not disp_graph3
             init_prop = ts.g.node[init_ts].get('prop', set())
             print(init_prop)
             # Iterate over the initial states of the FSA

@@ -24,7 +24,7 @@ try:
     # fsa_pickup.from_formula('F (pick1 & F (pick2 & F dropoff)) | F (pick2 & F (pick1 & F dropoff))')
     # fsa_pickup.save('fsa_pickup.yaml')
     # print('Saved FSA pick!')
-    fsa_pickup = Fsa.load('tests/fsa_pickup.yaml')
+    # fsa_pickup = Fsa.load('tests/fsa_pickup.yaml')
 except Exception as e:
     print(f"Error loading the YAML file: {e}")
     exit()
@@ -39,33 +39,31 @@ packages = [
 ]
 dropoff = 'R'
 
-def ts_product_packages(ts, packages, dropoff):
+def ts_product_packages(ts, packages, dropoff): #translate to math for final write up look at picture
     
     ts_prod = Ts(multi=False, directed=True)
 
     dim = len(packages)
 
     ts_init = next(iter(ts.init))
-    ts_prod.init = (ts_init, (0,) * dim)
-
-    ts_prod.g.add_node((ts_init, (0,) * dim)) #added
-    ts_prod.g.node[(ts_init, (0,) * dim)]['prop'] = 'gr'
+    ts_prod.init = [(ts_init, (0,) * dim)]
     
     # states of product
-
-
     for state in ts.g.nodes(data=False):
         print(state)
         for pick in it.product((0, 1), repeat=dim):
             ts_prod.g.add_node((state, pick))
-            node_name = str(state)  # Get the node name as a string
-            if node_name.startswith('G'):
-                ts_prod.g.node[(state, pick)]['prop'] = node_name.lower()
-            elif node_name == 'R':
-                ts_prod.g.node[(state, pick)]['prop'] = 'r'
-            else:
-                ts_prod.g.node[(state, pick)]['prop'] = ''  # Default if no specific rule
+            # node_name = str(state)  # Get the node name as a string
+            # if node_name.startswith('G'):
+            #     ts_prod.g.node[(state, pick)]['prop'] = node_name.lower()
+            # elif node_name == 'R':
+            #     ts_prod.g.node[(state, pick)]['prop'] = 'r'
+            # else:
+            ts_prod.g.node[(state, pick)]['prop'] = {}  # Default if no specific rule
     
+    #  label the initial state with 'gr'
+    ts_prod.g.node[(ts_init, (0,) * dim)]['prop'] = {'gr'}
+
     package_weights = np.array([pck[2] for pck in packages]) #changed pkg[] to pck[]
     # transitions of product
     for ts_current, ts_next, data in ts.g.edges(data=True):
@@ -85,46 +83,19 @@ def ts_product_packages(ts, packages, dropoff):
             for state in locations:
                 ts_prod.g.add_edge((state, pick), (state, next_pick), weight=pick_weight)
                 # update labels for states where packages are picked up 
-                ts_prod.g.node[(state, next_pick)]['prop'] = packages[k][0]
+                ts_prod.g.node[(state, next_pick)]['prop'] = {packages[k][0]}
     
     ts_prod.g.add_edge((dropoff, (1,)*dim), (dropoff, (0,)*dim), weight=0)
 
-    ts_prod.g.node[(dropoff, (0,)*dim)]['prop'] = 'r'
+    ts_prod.g.node[(dropoff, (0,)*dim)]['prop'] = {'r'}
 
 
     return ts_prod
 
-ts_prod=ts_product_packages(ts2, packages, dropoff)
+ts_prod = ts_product_packages(ts2, packages, dropoff)
 
-# for label, state in packages.items():
-#     ts2.g.node[state]['prop'].add(label)
+# print('is SC:', nx.is_strongly_connected(ts_prod.g)) # SANITY CHECK
 
-# def product_transition_data(current_state, next_state):
-#     '''Returns the default data to store for a transition of a product.
-
-#     Parameters
-#     ----------
-#     current_state, next_state: hashable
-#         The endpoint states of the transition.
-
-#     Returns
-#     -------
-#         Dictionary containing the data to be stored.
-#     '''
-#     ts_current, fsa_current = current_state
-#     ts_next, fsa_next = next_state
-
-#     ts_weight = ts2.g[ts_current][ts_next]['weight']
-#     fsa_weight = fsa_pickup.g[fsa_current][fsa_next]['weight']
-
-#     return {'weight': ts_weight + fsa_weight}
-
-# ts_prod = product.ts_times_fsa(ts2, fsa_pickup, get_transition_data=product_transition_data)
-# print('TS prod done!', ts_prod.size())
-
-# exit()
-
-# ts_prod=product.ts_times_ts((ts,ts2))
 # Display graph details (optional)
 
 
@@ -135,6 +106,12 @@ node_key = ('GR', (0, 0))
 node_data = ts_prod.g.node[ts_prod_init].get('prop', set())  # Access the node's data
 print(node_data)
 #print(f"Edges: {list(ts_prod.g.edges(data=True))}")
+
+# print('----------\n\n')
+
+# for node, data in ts_prod.g.nodes(data=True):
+#     print(f'Node: {node}, data: {data}')
+# exit()
 
 # Visualize the graph using matplotlib
 try:
@@ -147,15 +124,18 @@ except Exception as e:
     print(f"Error visualizing the graph: {e}")
 
 # Define the specification and create FSA automaton
-spec = 'G((!r U (F pick1 & F pick2)) & X (F (r & X gr)))'
-spec= '(F pick1 && F pick2)'
+# spec = 'G((!r U (F pick1 & F pick2)) & X (F (r & X gr)))'
+spec = '(F pick1 && F pick2)'
 #spec= '  (gr && X (g13 && X (r && X (g13 && X gr))))'
 #spec ='F (g12 && F g24) || F (g24 && F g12) && X (F r)'
-fsa = Fsa()  # Create an Fsa object
+fsa = Fsa(multi=False)  # Create an Fsa object
 fsa.from_formula(spec)
 
 # Display FSA details
 print(f"FSA Size: {fsa.size()}")
+
+# print(fsa)
+# exit()
 
 # Visualize the FSA
 try:
@@ -170,8 +150,11 @@ except Exception as e:
 
 myvar2=2
 if myvar2==2:
-    pa=product.ts_times_fsa(ts_prod,fsa)
-    print(pa.size())
+    pa = product.ts_times_fsa(ts_prod, fsa)
+    print(pa.size(), ts_prod.size(), fsa.size())
+    print(pa.directed, pa.multi)
+    print(pa.init)
+    print(pa.final)
     pa.visualize(draw='matplotlib')
     plt.show()
     plt.title("PA Automaton")  # Add title for clarity
