@@ -124,8 +124,10 @@ except Exception as e:
     print(f"Error visualizing the graph: {e}")
 
 # Define the specification and create FSA automaton
-# spec = 'G((!r U (F pick1 & F pick2)) & X (F (r & X gr)))'
-spec = '(F pick1 && F pick2)'
+spec = 'G((!r U (F pick1 & F pick2)) & X (F (r & X gr)))'
+spec = 'F( pick1 & F (pick2 & )'
+spec = ''
+#spec = '(F pick1 && F pick2)'
 #spec= '  (gr && X (g13 && X (r && X (g13 && X gr))))'
 #spec ='F (g12 && F g24) || F (g24 && F g12) && X (F r)'
 fsa = Fsa(multi=False)  # Create an Fsa object
