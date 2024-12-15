@@ -39,7 +39,6 @@ except Exception as e:
 packages = [
     ('pick1', ['G67'], 400),
     ('pick2', ['G27'], 3),
-    ('pick3', ['G1'], 20),
 ]
 dropoff = 'R'
 
@@ -110,7 +109,7 @@ def ts_product_packages(ts, packages, dropoff): #translate to math for final wri
 
     return ts_prod, positions_3d
 
-#def visualize_3d_ts(ts_prod, positions_3d):
+def visualize_3d_ts(ts_prod, positions_3d):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
@@ -219,7 +218,7 @@ formula = generate_formula(packages)
 print(formula)
 
 ts_prod, positions_3d = ts_product_packages(ts2, packages, dropoff)
-#visualize_3d_ts(ts_prod,positions_3d)
+visualize_3d_ts(ts_prod,positions_3d)
 
 # print('is SC:', nx.is_strongly_connected(ts_prod.g)) # SANITY CHECK
 
